@@ -1,0 +1,18 @@
+{
+  "name": "youtube-viewer",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r <img alt=\"ViewCount\" src=\"https://views.whatilearened.today/views/github/MShawon/YouTube-Viewer.svg\">\r <img alt=\"OS\" src=\"https://img.shields.io/badge/OS-Windows%20/%20Linux / Mac-success\">\r <a href=\"https://github.com/MShawon/YouTube-Viewer/releases\"><img alt=\"Downloads\" src=\"https://img.shields.io/github/downloads/MShawon/YouTube-Viewer/total?label=Downloads&color=success\"></a>\r <a href=\"https://github.com/MShawon/YouTube-Viewer/issues?q=is%3Aissue+is%3Aclosed\"><img alt=\"Closed issues\" src=\"https://img.shields.io/github/issues-closed/MShawon/YouTube-Viewer.svg\"></a>\r <a href=\"https://github.com/MShawon/YouTube-Viewer/issues?q=is%3Aissue+is%3Aopen\"><img alt=\"Open issues\" src=\"https://img.shields.io/github/issues/MShawon/YouTube-Viewer\"></a>\r </p>\r <p align=\"center\">\r   <a href=\"https://github.com/MShawon/YouTube-Viewer/releases/latest\"><img alt=\"GitHub release (latest by date)\" src=\"https://img.shields.io/github/v/release/MShawon/YouTube-Viewer?color=success\"></a>\r   <a href=\"https://github.com/MShawon/YouTube-Viewer/releases/latest\"><img alt=\"GitHub Release Date\" src=\"https://img.shields.io/github/release-date/MShawon/YouTube-Viewer?color=success\"></a>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "child_process": "^1.0.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security"
+  }
+}

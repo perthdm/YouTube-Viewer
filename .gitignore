@@ -8,3 +8,4 @@ config.json
 chromedriver.exe
 version.txt
 *.log
+ืnode_modules
