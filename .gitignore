@@ -9,3 +9,5 @@ chromedriver.exe
 version.txt
 *.log
 ืnode_modules
+myproxy.txt
+GoodProxy.txt

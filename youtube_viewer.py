@@ -425,7 +425,7 @@ def control_player(driver, output, position, proxy, youtube, collect_id=True):
 
     actual_duration = strftime(
         "%Hh:%Mm:%Ss", gmtime(video_len)).lstrip("0h:0m:")
-    video_len = video_len*uniform(minimum, maximum)
+    video_len = 35*uniform(1, 2)
     duration = strftime("%Hh:%Mm:%Ss", gmtime(video_len)).lstrip("0h:0m:")
 
     if len(output) == 11:
@@ -1016,12 +1016,12 @@ if __name__ == '__main__':
 
         if len(config) == 11:
             print(json.dumps(config, indent=4))
-            print(bcolors.OKCYAN + 'Config file exists! Program will start automatically after 20 seconds...' + bcolors.ENDC)
-            print(bcolors.FAIL + 'If you want to create a new config file PRESS CTRL+C within 20 seconds!' + bcolors.ENDC)
-            start = time() + 20
+            print(bcolors.OKCYAN + 'Config file exists! Program will start automatically after 5 seconds...' + bcolors.ENDC)
+            print(bcolors.FAIL + 'If you want to create a new config file PRESS CTRL+C within 5 seconds!' + bcolors.ENDC)
+            start = time() + 5
             try:
                 i = 0
-                while i < 96:
+                while i < 25:
                     print(bcolors.OKBLUE + f"{start - time():.0f} seconds remaining " +
                           animation[i % len(animation)] + bcolors.ENDC, end="\r")
                     i += 1
