@@ -3,6 +3,7 @@ const { spawn } = require("child_process");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require("fs");
+const PythonShell = require("python-shell").PythonShell;
 
 const app = express();
 const port = 3001;
@@ -36,39 +37,48 @@ let conf = {
   min_threads: 2,
 };
 
-const proxyList = ["49.48.41.11:3128", "  49.48.41.11:3129"];
+app.get("/", (req, res) => {
+  // const proxyList = [
+  //   "171.6.73.223:3128",
+  //   "171.6.73.223:3129",
+  //   "171.6.73.223:3130",
+  // ];
 
-app.post("/", (req, res) => {
-  let { searchTxt, video_id, url } = req.body;
-  console.log(req.body);
-  let proxyTxt = "";
+  // let proxyTxt = "";
+  // if (proxyList.length > 0) {
+  //   proxyList.map((item) => {
+  //     proxyTxt += item + "\n";
+  //   });
+  // }
 
-  if (proxyList.length > 0) {
-    proxyList.map((item) => {
-      proxyTxt += item + "\n";
-    });
-  }
+  // writeFile("myproxy.txt", proxyTxt);
 
-  writeFile("myproxy.txt", proxyTxt);
-  writeFile("urls.txt", url);
-  fs.writeFileSync('config.json', JSON.stringify(conf, null, 2) , 'utf-8');
-  writeFile("search.txt", `${searchTxt} :::: ${video_id}`);
-
-  // var dataToSend;
-  // // spawn new child process to call the python script
-  const python = spawn("python3", ["proxy_check.py"]);
-
-  // collect data from script
-  python.stdout.on("data", function (data) {
-    console.log("Pipe data from python script ...");
-    dataToSend = data.toString();
+  const python = spawn("python3", ["proxy_check.py"], {
+    stdio: "inherit",
   });
 
-  //   in close event we are sure that stream from child process is closed
-  python.on("close", (code) => {
-    console.log(`child process close all stdio with code ${code}`);
-    // send data to browser
-    res.send(dataToSend);
+  // Optional: Handle process exit
+  python.on("exit", (code, signal) => {
+    console.log(`Python process exited with code ${code} and signal ${signal}`);
+    res.send("ALREADY CREATE FILE GOOD PROXY");
+  });
+});
+
+app.post("/", (req, res) => {
+  let { search_txt, video_url, video_id } = req.body;
+
+  writeFile("urls.txt", video_url);
+  writeFile("search.txt", `${search_txt} :::: ${video_id}`);
+  // fs.writeFileSync("config.json", JSON.stringify(conf, null, 2), "utf-8");
+
+  const python = spawn("python3", ["youtube_viewer.py"], {
+    stdio: "inherit",
+  });
+
+  // Optional: Handle process exit
+  python.on("exit", (code, signal) => {
+    console.log(code);
+    console.log(`Python process exited with code ${code} and signal ${signal}`);
   });
 });
 
