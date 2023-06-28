@@ -425,7 +425,8 @@ def control_player(driver, output, position, proxy, youtube, collect_id=True):
 
     actual_duration = strftime(
         "%Hh:%Mm:%Ss", gmtime(video_len)).lstrip("0h:0m:")
-    video_len = 35*uniform(1, 2)
+    if video_len >= 70:
+        video_len = 35*uniform(1, 2)
     duration = strftime("%Hh:%Mm:%Ss", gmtime(video_len)).lstrip("0h:0m:")
 
     if len(output) == 11:
