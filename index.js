@@ -3,7 +3,6 @@ const { spawn } = require("child_process");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require("fs");
-const PythonShell = require("python-shell").PythonShell;
 
 const app = express();
 const port = 3001;
