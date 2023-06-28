@@ -69,7 +69,7 @@ app.post("/", (req, res) => {
 
   writeFile("urls.txt", video_url);
   writeFile("search.txt", `${search_txt} :::: ${video_id}`);
-  // fs.writeFileSync("config.json", JSON.stringify(conf, null, 2), "utf-8");
+  fs.writeFileSync("config.json", JSON.stringify(conf, null, 2), "utf-8");
 
   const python = spawn("python3", ["youtube_viewer.py"], {
     stdio: "inherit",

@@ -8,6 +8,8 @@ config.json
 chromedriver.exe
 version.txt
 *.log
-ืnode_modules
-myproxy.txt
-GoodProxy.txt
+node_modules
+
+./myproxy.txt
+./GoodProxy.txt
+./ProxyBackup.txt
