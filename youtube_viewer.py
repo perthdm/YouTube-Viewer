@@ -520,7 +520,11 @@ def youtube_live(proxy, position, driver, output):
         play_video(driver)
 
         random_command(driver)
-
+        
+        delay = 35 * uniform(1, 2)
+        sleep(delay)
+        update_view_count(position)
+        
         if error == 5:
             break
         sleep(60)
