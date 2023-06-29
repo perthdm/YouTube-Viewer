@@ -948,7 +948,7 @@ def main():
                 if category == 'r' and proxy_api:
                     proxies_from_api = scrape_api(link=filename)
 
-                if len(view) >= views:
+                if len(view) >= int(views):
                     print(timestamp() + bcolors.WARNING +
                           f'Amount of views added : {views} | Stopping program...' + bcolors.ENDC)
                     create_html(
@@ -1044,7 +1044,7 @@ if __name__ == '__main__':
     hash_queries = get_hash("search.txt")
     hash_config = get_hash(config_path)
 
-    while len(view) < views:
+    while len(view) < int(views):
         try:
             with open(config_path, 'r', encoding='utf-8-sig') as openfile:
                 config = json.load(openfile)
