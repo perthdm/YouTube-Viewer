@@ -9,7 +9,7 @@ const port = 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 let conf = (view_expect) => {
   view_expect = view_expect ? view_expect : 1;
@@ -39,38 +39,8 @@ let conf = (view_expect) => {
   };
 };
 
-app.get("/check-proxy-available", (req, res) => {
-  // MOCK UP DATA
-  const proxyList = [
-    "171.6.73.223:3128",
-    "171.6.73.223:3129",
-    "171.6.73.223:3130",
-  ];
-
-  // Function get all proxy available
-
-  let proxyTxt = "";
-  if (proxyList.length > 0) {
-    proxyList.map((item) => {
-      proxyTxt += item + "\n";
-    });
-  }
-
-  writeFile("myproxy.txt", proxyTxt);
-
-  const python = spawn("python3", ["proxy_check.py"], {
-    stdio: "inherit",
-  });
-
-  // Optional: Handle process exit
-  python.on("exit", (code, signal) => {
-    console.log(`Python process exited with code ${code} and signal ${signal}`);
-    res.send("ALREADY CREATE FILE GOOD PROXY");
-  });
-});
-
 app.post("/confirm-order", (req, res) => {
-  let { search_txt, video_url, video_id, view_expect } = req.body;
+  let { search_txt, video_url, video_id, view_expect, proxy_list } = req.body;
 
   writeFile("urls.txt", video_url);
   writeFile("search.txt", `${search_txt} :::: ${video_id}`);
@@ -80,7 +50,16 @@ app.post("/confirm-order", (req, res) => {
     "utf-8"
   );
 
-  const python = spawn("python3", ["youtube_viewer.py"], {
+  let proxyTxt = "";
+  if (proxy_list) {
+    proxy_list.map((item) => {
+      proxyTxt += item + "\n";
+    });
+  }
+
+  writeFile("GoodProxy.txt", proxyTxt);
+
+  const python = spawn("python", ["youtube_viewer.py"], {
     stdio: "inherit",
   });
 
@@ -89,6 +68,8 @@ app.post("/confirm-order", (req, res) => {
     console.log(code);
     console.log(`Python process exited with code ${code} and signal ${signal}`);
   });
+
+  res.json(true);
 });
 
 const writeFile = (fileName, content) => {
