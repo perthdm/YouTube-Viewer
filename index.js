@@ -40,7 +40,7 @@ let conf = (view_expect) => {
 };
 
 app.post("/confirm-order", (req, res) => {
-  let { search_txt, video_url, video_id, view_expect, proxy_list } = req.body;
+  let { search_txt, video_url, video_id, view_expect, good_proxy } = req.body;
 
   writeFile("urls.txt", video_url);
   writeFile("search.txt", `${search_txt} :::: ${video_id}`);
@@ -51,8 +51,8 @@ app.post("/confirm-order", (req, res) => {
   );
 
   let proxyTxt = "";
-  if (proxy_list) {
-    proxy_list.map((item) => {
+  if (good_proxy) {
+    good_proxy.map((item) => {
       proxyTxt += item + "\n";
     });
   }
