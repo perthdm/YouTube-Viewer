@@ -51,11 +51,13 @@ app.post("/confirm-order", (req, res) => {
   );
 
   let proxyTxt = "";
-  if (good_proxy) {
-    good_proxy.map((item) => {
-      proxyTxt += item + "\n";
-    });
+  if (!good_proxy) {
+    good_proxy = ["171.6.73.223:3129", "171.6.73.223:3130"];
   }
+
+  good_proxy.map((item) => {
+    proxyTxt += item + "\n";
+  });
 
   writeFile("GoodProxy.txt", proxyTxt);
 

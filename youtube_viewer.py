@@ -288,6 +288,17 @@ def update_view_count(position):
 
 def set_referer(position, url, method, driver):
     referer = choice(referers)
+    
+    driver.get('https://accounts.google.com/signin/v2/identifier?continue=')
+    email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
+    email_field.send_keys("YOUR_EMAIL")
+    email_field.send_keys(Keys.RETURN)
+
+    password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
+    password_field.send_keys("YOUR_PASSWORD")
+    password_field.send_keys(Keys.RETURN)
+        
+
     if referer:
         if method == 2 and 't.co/' in referer:
             driver.get(url)
