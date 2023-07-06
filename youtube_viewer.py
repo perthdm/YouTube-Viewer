@@ -287,16 +287,21 @@ def update_view_count(position):
 
 
 def set_referer(position, url, method, driver):
-    referer = choice(referers)
+    referer = choice(referers)   
     
-    driver.get('https://accounts.google.com/signin/v2/identifier?continue=')
-    email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
-    email_field.send_keys("YOUR_EMAIL")
-    email_field.send_keys(Keys.RETURN)
+    # driver.get(r'https://accounts.google.com/signin/v2/identifier?continue='+\
+    # 'https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1'+\
+    # '&flowName=GlifWebSignIn&flowEntry = ServiceLogin')
+   
+    # driver.implicitly_wait(15)
 
-    password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
-    password_field.send_keys("YOUR_PASSWORD")
-    password_field.send_keys(Keys.RETURN)
+    # email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
+    # email_field.send_keys("pudgesingle69@gmail.com")
+    # email_field.send_keys(Keys.RETURN)
+
+    # password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
+    # password_field.send_keys("plug11041998")
+    # password_field.send_keys(Keys.RETURN)
         
 
     if referer:

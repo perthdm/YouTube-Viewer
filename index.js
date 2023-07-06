@@ -52,7 +52,7 @@ app.post("/confirm-order", (req, res) => {
 
   let proxyTxt = "";
   if (!good_proxy) {
-    good_proxy = ["171.6.73.223:3129", "171.6.73.223:3130"];
+    good_proxy = ["49.48.40.82:3129", "171.6.73.223:3130"];
   }
 
   good_proxy.map((item) => {
@@ -61,12 +61,14 @@ app.post("/confirm-order", (req, res) => {
 
   writeFile("GoodProxy.txt", proxyTxt);
 
-  const python = spawn("python", ["youtube_viewer.py"], {
+  const pythonProcess = spawn("python", ["youtube_viewer.py"], {
     stdio: "inherit",
   });
 
+  console.log("Python process name:", pythonProcess.pid);
+
   // Optional: Handle process exit
-  python.on("exit", (code, signal) => {
+  pythonProcess.on("exit", (code, signal) => {
     console.log(code);
     console.log(`Python process exited with code ${code} and signal ${signal}`);
   });
