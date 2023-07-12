@@ -52,7 +52,7 @@ app.post("/confirm-order", (req, res) => {
 
   let proxyTxt = "";
   if (!good_proxy) {
-    good_proxy = ["49.48.40.82:3129", "171.6.73.223:3130"];
+    good_proxy = ["49.48.45.94:3129", "49.48.45.94:3130"];
   }
 
   good_proxy.map((item) => {
@@ -61,7 +61,7 @@ app.post("/confirm-order", (req, res) => {
 
   writeFile("GoodProxy.txt", proxyTxt);
 
-  const pythonProcess = spawn("python", ["youtube_viewer.py"], {
+  const pythonProcess = spawn("python3", ["youtube_viewer.py"], {
     stdio: "inherit",
   });
 

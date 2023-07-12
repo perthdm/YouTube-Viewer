@@ -288,44 +288,51 @@ def update_view_count(position):
 
 def set_referer(position, url, method, driver):
     referer = choice(referers)   
-    
-    # driver.get(r'https://accounts.google.com/signin/v2/identifier?continue='+\
-    # 'https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1'+\
-    # '&flowName=GlifWebSignIn&flowEntry = ServiceLogin')
+
+
+    driver.get('https://mail.google.com')
+    driver.implicitly_wait(60)
+        
+    gmail_username = 'pudgesingle69@gmail.com'
+    gmail_password = 'plug11041998'
    
-    # driver.implicitly_wait(15)
 
-    # email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
-    # email_field.send_keys("pudgesingle69@gmail.com")
-    # email_field.send_keys(Keys.RETURN)
+    email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
+    email_field.send_keys(gmail_username)
 
+    button1 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierNext")))
+    button1.click()
+
+    # driver.implicitly_wait(60)
     # password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
-    # password_field.send_keys("plug11041998")
+    # password_field.send_keys(gmail_password)
+    # driver.find_element_by_id('passwordNext').click()
+
     # password_field.send_keys(Keys.RETURN)
         
 
-    if referer:
-        if method == 2 and 't.co/' in referer:
-            driver.get(url)
-        else:
-            if 'search.yahoo.com' in referer:
-                driver.get('https://duckduckgo.com/')
-                driver.execute_script(
-                    "window.history.pushState('page2', 'Title', arguments[0]);", referer)
-            else:
-                driver.get(referer)
+    # if referer:
+    #     if method == 2 and 't.co/' in referer:
+    #         driver.get(url)
+    #     else:
+    #         if 'search.yahoo.com' in referer:
+    #             driver.get('https://duckduckgo.com/')
+    #             driver.execute_script(
+    #                 "window.history.pushState('page2', 'Title', arguments[0]);", referer)
+    #         else:
+    #             driver.get(referer)
 
-            driver.execute_script(
-                "window.location.href = '{}';".format(url))
+    #         driver.execute_script(
+    #             "window.location.href = '{}';".format(url))
 
-        print(timestamp() + bcolors.OKBLUE +
-              f"Worker {position} | Referer used : {referer}" + bcolors.ENDC)
+    #     print(timestamp() + bcolors.OKBLUE +
+    #           f"Worker {position} | Referer used : {referer}" + bcolors.ENDC)
 
-        create_html(
-            {"#3b8eea": f"Worker {position} | Referer used : {referer}"})
+    #     create_html(
+    #         {"#3b8eea": f"Worker {position} | Referer used : {referer}"})
 
-    else:
-        driver.get(url)
+    # else:
+    #     driver.get(url)
 
 
 def youtube_normal(method, keyword, video_title, driver, output):
