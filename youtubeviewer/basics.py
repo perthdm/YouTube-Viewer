@@ -25,6 +25,7 @@ import os
 from glob import glob
 
 from .features import *
+# import undetected_chromedriver as uc
 
 WEBRTC = os.path.join('extension', 'webrtc_control.zip')
 ACTIVE = os.path.join('extension', 'always_active.zip')
@@ -99,6 +100,10 @@ def get_driver(background, viewports, agent, auth_required, path, proxy, proxy_t
     if viewports:
         options.add_argument(f"--window-size={choice(viewports)}")
     options.add_argument("--log-level=3")
+
+    options.add_argument("user-data-dir=D:\\localhost")
+    options.add_argument('--profile-directory=Profile 1')
+
     options.add_experimental_option(
         "excludeSwitches", ["enable-automation", "enable-logging"])
     options.add_experimental_option('useAutomationExtension', False)
@@ -116,7 +121,7 @@ def get_driver(background, viewports, agent, auth_required, path, proxy, proxy_t
     options.add_argument('--disable-features=UserAgentClientHint')
     options.add_argument("--disable-web-security")
     options.add_argument("--allow-running-insecure-content")
-  
+
     webdriver.DesiredCapabilities.CHROME['loggingPrefs'] = {
         'driver': 'OFF', 'server': 'OFF', 'browser': 'OFF'}
 
@@ -135,8 +140,11 @@ def get_driver(background, viewports, agent, auth_required, path, proxy, proxy_t
     else:
         options.add_argument(f'--proxy-server={proxy_type}://{proxy}')
 
+    # path = "D:\ChromeDriver\chromedriver.exe"
+    # driver =  uc.Chrome(executable_path=path , options=options)
+
     service = Service(executable_path=path)
-    driver = webdriver.Chrome(service=service, options=options)
+    driver =  webdriver.Chrome(service=service , options=options)
 
     return driver
 

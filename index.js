@@ -35,7 +35,7 @@ let conf = (view_expect) => {
     bandwidth: true,
     playback_speed: 1,
     max_threads: 5,
-    min_threads: 2,
+    min_threads: 1,
   };
 };
 
@@ -44,15 +44,11 @@ app.post("/confirm-order", (req, res) => {
 
   writeFile("urls.txt", video_url);
   writeFile("search.txt", `${search_txt} :::: ${video_id}`);
-  fs.writeFileSync(
-    "config.json",
-    JSON.stringify(conf(view_expect), null, 2),
-    "utf-8"
-  );
+  fs.writeFileSync("config.json", JSON.stringify(conf(view_expect)), "utf-8");
 
   let proxyTxt = "";
   if (!good_proxy) {
-    good_proxy = ["49.48.45.94:3129", "49.48.45.94:3130"];
+    good_proxy = ["223.205.76.14:3129"];
   }
 
   good_proxy.map((item) => {
