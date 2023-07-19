@@ -289,50 +289,54 @@ def update_view_count(position):
 def set_referer(position, url, method, driver):
     referer = choice(referers)   
 
+    # gmail_username = ''
+    # gmail_password = ''
 
-    driver.get('https://mail.google.com')
-    driver.implicitly_wait(60)
-        
-    gmail_username = 'pudgesingle69@gmail.com'
-    gmail_password = 'plug11041998'
+    # # VIA STACK OVERFLOW
+    # driver.get("https://stackoverflow.com")
+    # sleep(3)
+    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/header/div/nav/ol/li[3]/a'))).click()
+
+    # sleep(3) 
+    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="openid-buttons"]/button[1]'))).click()
+    # sleep(3)
    
-
-    email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
-    email_field.send_keys(gmail_username)
-
-    button1 = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "identifierNext")))
-    button1.click()
+    # email_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="identifierId"]')))
+    # email_field.send_keys(gmail_username)
+    
+    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'identifierNext'))).click()
 
     # driver.implicitly_wait(60)
-    # password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "password")))
+    # password_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input')))
     # password_field.send_keys(gmail_password)
-    # driver.find_element_by_id('passwordNext').click()
+    # sleep(3)
 
-    # password_field.send_keys(Keys.RETURN)
-        
+    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'passwordNext'))).click()
+    # sleep(5)
 
-    # if referer:
-    #     if method == 2 and 't.co/' in referer:
-    #         driver.get(url)
-    #     else:
-    #         if 'search.yahoo.com' in referer:
-    #             driver.get('https://duckduckgo.com/')
-    #             driver.execute_script(
-    #                 "window.history.pushState('page2', 'Title', arguments[0]);", referer)
-    #         else:
-    #             driver.get(referer)
+    driver.get('https://google.com/')
+    if referer:
+        if method == 2 and 't.co/' in referer:
+            driver.get(url)
+        else:
+            if 'search.yahoo.com' in referer:
+                driver.get('https://duckduckgo.com/')
+                driver.execute_script(
+                    "window.history.pushState('page2', 'Title', arguments[0]);", referer)
+            else:
+                driver.get(referer)
 
-    #         driver.execute_script(
-    #             "window.location.href = '{}';".format(url))
+            driver.execute_script(
+                "window.location.href = '{}';".format(url))
 
-    #     print(timestamp() + bcolors.OKBLUE +
-    #           f"Worker {position} | Referer used : {referer}" + bcolors.ENDC)
+        print(timestamp() + bcolors.OKBLUE +
+              f"Worker {position} | Referer used : {referer}" + bcolors.ENDC)
 
-    #     create_html(
-    #         {"#3b8eea": f"Worker {position} | Referer used : {referer}"})
+        create_html(
+            {"#3b8eea": f"Worker {position} | Referer used : {referer}"})
 
-    # else:
-    #     driver.get(url)
+    else:
+        driver.get(url)
 
 
 def youtube_normal(method, keyword, video_title, driver, output):
