@@ -3,6 +3,7 @@ const { spawn } = require("child_process");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require("fs");
+const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
 const port = 3001;
@@ -10,6 +11,16 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const dbPath = "database.db";
+
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+  if (err) {
+    console.error("Error opening database:", err.message);
+  } else {
+    console.log("Connected to the database.");
+  }
+});
 
 let conf = (view_expect) => {
   view_expect = view_expect ? view_expect : 1;
@@ -74,6 +85,34 @@ app.post("/confirm-order", (req, res) => {
   });
 
   res.json(true);
+});
+
+app.get("/data", (req, res) => {
+  // const query = "SELECT * FROM statistics;";
+  const query = 'SELECT SUM(view) AS total FROM statistics;';
+
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      console.error("Error executing query:", err.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      // Send the data as a JSON response
+      res.json(rows);
+    }
+  });
+});
+
+app.delete("/data", (req, res) => {
+  const query = "DELETE FROM statistics;";
+
+  db.run(query, [], (err) => {
+    if (err) {
+      console.error("Error executing query:", err.message);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json({ message: "All records deleted successfully" });
+    }
+  });
 });
 
 const writeFile = (fileName, content) => {
