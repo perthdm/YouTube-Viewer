@@ -1,26 +1,3 @@
-"""
-MIT License
-
-Copyright (c) 2021-2023 MShawon
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
 import io
 import json
 import logging
@@ -60,14 +37,6 @@ Yb  dP  dP"Yb  88   88 888888 88   88 88""Yb 888888
                          Yb  dP  88 88__    Yb  db  dP  88__   88__dP
                           YbdP   88 88""     YbdPYbdP   88""   88"Yb
                            YP    88 888888    YP  YP    888888 88  Yb
-""" + bcolors.ENDC)
-
-print(bcolors.OKCYAN + """
-           [ GitHub : https://github.com/MShawon/YouTube-Viewer ]
-""" + bcolors.ENDC)
-
-print(bcolors.WARNING + f"""
-+{'-'*26} Version: {SCRIPT_VERSION} {'-'*26}+
 """ + bcolors.ENDC)
 
 proxy = None
