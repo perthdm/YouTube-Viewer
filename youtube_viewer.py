@@ -38,6 +38,13 @@ Yb  dP  dP"Yb  88   88 888888 88   88 88""Yb 888888
                           YbdP   88 88""     YbdPYbdP   88""   88"Yb
                            YP    88 888888    YP  YP    888888 88  Yb
 """ + bcolors.ENDC)
+print(bcolors.OKCYAN + """
+           [ GitHub : https://github.com/MShawon/YouTube-Viewer ]
+""" + bcolors.ENDC)
+
+print(bcolors.WARNING + f"""
++{'-'*26} Version: {SCRIPT_VERSION} {'-'*26}+
+""" + bcolors.ENDC)
 
 proxy = None
 status = None
