@@ -93,6 +93,7 @@ bad_proxies = []
 used_proxies = []
 temp_folders = []
 console = []
+used_profiles = []
 
 threads = 0
 views = 100
@@ -660,11 +661,30 @@ def quit_driver(driver, data_dir):
     status = 400
     return status
 
+def get_profile():
+    profile = None
+    profiles = os.listdir(r'c:\Browser_Profile')
+
+    i = 0
+    while i < len(profiles):
+        p = choice(profiles)
+        if p not in used_profiles:
+            used_profiles.append(p)
+            profile = p
+            break
+        i += 1
+    
+    return profile
+def remove_used_profile(profile):
+    if profile and profile in used_profiles:
+        used_profiles.remove(profile)
+
 
 def main_viewer(proxy_type, proxy, position):
     global width, viewports
     driver = None
     data_dir = None
+    profile = None
 
     if cancel_all:
         raise KeyboardInterrupt
@@ -722,14 +742,25 @@ def main_viewer(proxy_type, proxy, position):
             sleep(sleep_time)
             if cancel_all:
                 raise KeyboardInterrupt
+            profile = get_profile()
+            print(profile)
+            print("get_driver arguments:")
+            print("background:", background)
+            print("viewports:", viewports)
+            print("agent:", agent)
+            print("auth_required:", auth_required)
+            print("proxy:", proxy)
+            print("proxy_type:", proxy_type)
+            print("proxy_folder:", proxy_folder)
+            print("profile:", profile)
+            driver = get_driver(False, viewports, agent, auth_required,
+                                patched_driver, proxy, proxy_type, proxy_folder, profile)
 
-            driver = get_driver(background, viewports, agent, auth_required,
-                                patched_driver, proxy, proxy_type, proxy_folder)
+            if not profile:
+                data_dir = driver.capabilities['chrome']['userDataDir']
+                temp_folders.append(data_dir)
 
             driver_dict[driver] = proxy_folder
-
-            data_dir = driver.capabilities['chrome']['userDataDir']
-            temp_folders.append(data_dir)
 
             sleep(2)
 
@@ -780,7 +811,7 @@ def main_viewer(proxy_type, proxy, position):
 
             channel_or_endscreen(proxy, position, youtube,
                                  driver, view_stat, current_url, current_channel)
-
+            remove_used_profile(profile=profile)
             if randint(1, 2) == 1:
                 try:
                     driver.find_element(By.ID, 'movie_player').send_keys('k')
@@ -790,6 +821,8 @@ def main_viewer(proxy_type, proxy, position):
             status = quit_driver(driver=driver, data_dir=data_dir)
 
         except Exception as e:
+            remove_used_profile(profile=profile)
+
             status = quit_driver(driver=driver, data_dir=data_dir)
 
             print(timestamp() + bcolors.FAIL +
